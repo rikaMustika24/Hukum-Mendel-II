@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Maya: Hukum Mendel II (Persilangan Dihibrid)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header Navbar -->
+    <header class="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+                        <i data-lucide="dna" class="w-7 h-7 text-emerald-300"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg sm:text-xl font-bold tracking-tight leading-tight">Lab Maya Genetika</h1>
+                        <p class="text-xs text-emerald-200 hidden sm:block">Hukum Mendel II - Asortasi Bebas (Dihibrid)</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex space-x-1 sm:space-x-2 bg-emerald-900/40 p-1 rounded-xl backdrop-blur-md border border-white/10">
+                    <button onclick="switchTab('lab')" id="tab-lab" class="nav-tab px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 bg-white text-emerald-800 shadow">
+                        <i data-lucide="flask-conical" class="w-4 h-4"></i>
+                        <span>Laboratorium</span>
+                    </button>
+                    <button onclick="switchTab('materi')" id="tab-materi" class="nav-tab px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 text-white/80 hover:text-white hover:bg-white/10">
+                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                        <span>Materi</span>
+                    </button>
+                    <button onclick="switchTab('kuis')" id="tab-kuis" class="nav-tab px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 text-white/80 hover:text-white hover:bg-white/10">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                        <span>Kuis</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- TAB 1: LABORATORIUM PERSILANGAN -->
+        <section id="content-lab" class="space-y-6">
+            <!-- Top Controls Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Selection Panel Induk -->
+                <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                            <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                                <i data-lucide="settings-2" class="w-5 h-5 text-emerald-600"></i>
+                                Genotipe Induk (Parental / P1)
+                            </h2>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full">Karakter Biji Kacang Ercis</span>
+                        </div>
+
+                        <!-- Info Karakter / Alel -->
+                        <div class="grid grid-cols-2 gap-2 mb-4 p-2.5 bg-slate-50 rounded-xl text-xs text-slate-600 border border-slate-100">
+                            <div>
+                                <span class="font-bold text-slate-700">Bentuk:</span> <br>
+                                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span><b>B</b> = Bulat (Dominan)<br>
+                                <span class="inline-block w-2 h-2 rounded-full bg-slate-400 mr-1"></span><b>b</b> = Keriput (Resesif)
+                            </div>
+                            <div>
+                                <span class="font-bold text-slate-700">Warna:</span> <br>
+                                <span class="inline-block w-2 h-2 rounded-full bg-amber-400 mr-1"></span><b>K</b> = Kuning (Dominan)<br>
+                                <span class="inline-block w-2 h-2 rounded-full bg-emerald-600 mr-1"></span><b>k</b> = Hijau (Resesif)
+                            </div>
+                        </div>
+
+                        <!-- Dropdowns Parent Selection -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Induk Jantan -->
+                            <div class="p-3 bg-blue-50/60 rounded-xl border border-blue-100">
+                                <label class="block text-xs font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                    <i data-lucide="mars" class="w-3.5 h-3.5 text-blue-600"></i> Induk 1 (Jantan)
+                                </label>
+                                <select id="parent1-select" onchange="updateSimulation()" class="w-full bg-white border border-blue-200 rounded-lg p-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                                    <option value="BBKK">BBKK (Bulat - Kuning Homo)</option>
+                                    <option value="BbKk" selected>BbKk (Bulat - Kuning Hetero)</option>
+                                    <option value="BBkk">BBkk (Bulat - Hijau Homo)</option>
+                                    <option value="bbKK">bbKK (Keriput - Kuning Homo)</option>
+                                    <option value="bbkk">bbkk (Keriput - Hijau Homo)</option>
+                                    <option value="BbKK">BbKK (Bulat Hetero - Kuning Homo)</option>
+                                    <option value="BBKk">BBKk (Bulat Homo - Kuning Hetero)</option>
+                                    <option value="bbKk">bbKk (Keriput - Kuning Hetero)</option>
+                                    <option value="Bbkk">Bbkk (Bulat Hetero - Hijau)</option>
+                                </select>
+                                <div id="p1-visual" class="mt-2 flex items-center gap-2 p-2 bg-white rounded-lg border border-blue-100">
+                                    <!-- Dynamic SVG icon for P1 -->
+                                </div>
+                            </div>
+
+                            <!-- Induk Betina -->
+                            <div class="p-3 bg-pink-50/60 rounded-xl border border-pink-100">
+                                <label class="block text-xs font-bold text-pink-900 mb-1 flex items-center gap-1">
+                                    <i data-lucide="venus" class="w-3.5 h-3.5 text-pink-600"></i> Induk 2 (Betina)
+                                </label>
+                                <select id="parent2-select" onchange="updateSimulation()" class="w-full bg-white border border-pink-200 rounded-lg p-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-sm">
+                                    <option value="BBKK">BBKK (Bulat - Kuning Homo)</option>
+                                    <option value="BbKk" selected>BbKk (Bulat - Kuning Hetero)</option>
+                                    <option value="BBkk">BBkk (Bulat - Hijau Homo)</option>
+                                    <option value="bbKK">bbKK (Keriput - Kuning Homo)</option>
+                                    <option value="bbkk">bbkk (Keriput - Hijau Homo)</option>
+                                    <option value="BbKK">BbKK (Bulat Hetero - Kuning Homo)</option>
+                                    <option value="BBKk">BBKk (Bulat Homo - Kuning Hetero)</option>
+                                    <option value="bbKk">bbKk (Keriput - Kuning Hetero)</option>
+                                    <option value="Bbkk">Bbkk (Bulat Hetero - Hijau)</option>
+                                </select>
+                                <div id="p2-visual" class="mt-2 flex items-center gap-2 p-2 bg-white rounded-lg border border-pink-100">
+                                    <!-- Dynamic SVG icon for P2 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gamet Result Preview -->
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Pemisahan Gamet Bebas (Hukum II Mendel)</h3>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-blue-50/50 p-2 rounded-lg text-blue-900">
+                                <span class="font-semibold block text-slate-600">Gamet Induk 1:</span>
+                                <span id="p1-gametes" class="font-mono font-bold text-blue-700">BK, Bk, bK, bk</span>
+                            </div>
+                            <div class="bg-pink-50/50 p-2 rounded-lg text-pink-900">
+                                <span class="font-semibold block text-slate-600">Gamet Induk 2:</span>
+                                <span id="p2-gametes" class="font-mono font-bold text-pink-700">BK, Bk, bK, bk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Punnett Square Board -->
+                <div class="lg:col-span-7 bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200/80">
+                    <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="grid" class="w-5 h-5 text-emerald-600"></i>
+                            Papan Catur Punnett Square (Mikro-Keturunan)
+                        </h2>
+                        <span class="text-xs text-slate-500">Arahkan kursor / ketuk sel untuk detail</span>
+                    </div>
+
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <div id="punnett-board" class="min-w-[420px] p-2">
+                            <!-- Punnett Grid generated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Population Experiment & Statistics Section -->
+            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200/80 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="bar-chart-3" class="w-5 h-5 text-emerald-600"></i>
+                            Eksperimen Persilangan Populasi Makro (Simulasi Keturunan)
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Uji kebenaran rasio Hukum Mendel II pada jumlah sampel populasi yang besar.</p>
+                    </div>
+
+                    <!-- Population controls -->
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-xs font-semibold text-slate-600">Jumlah Sampel:</span>
+                        <div class="inline-flex rounded-xl shadow-sm bg-slate-100 p-1 border border-slate-200">
+                            <button onclick="runPopulationSim(16)" class="pop-btn px-2.5 py-1 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">16</button>
+                            <button onclick="runPopulationSim(100)" class="pop-btn px-2.5 py-1 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">100</button>
+                            <button onclick="runPopulationSim(500)" class="pop-btn px-2.5 py-1 text-xs font-bold rounded-lg transition-all bg-emerald-600 text-white shadow">500</button>
+                            <button onclick="runPopulationSim(1000)" class="pop-btn px-2.5 py-1 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">1000</button>
+                        </div>
+                        <button onclick="runPopulationSim()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition shadow hover:shadow-md">
+                            <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i> acak Ulang
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Visualization & Comparison Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- Chart Canvas -->
+                    <div class="lg:col-span-7 h-64 sm:h-72 w-full relative">
+                        <canvas id="ratioChart"></canvas>
+                    </div>
+
+                    <!-- Summary Cards & Ratios -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Perbandingan Hasil Fenotipe</h3>
+                        
+                        <div id="phenotype-cards-container" class="grid grid-cols-2 gap-2.5">
+                            <!-- Generated dynamically by JS -->
+                        </div>
+
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/80 text-xs text-amber-900">
+                            <div class="flex items-start gap-2">
+                                <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+                                <p><strong>Catatan Hukum Mendel:</strong> Semakin besar jumlah sampel populasi yang disimulasikan, hasil rasio eksperimen akan semakin mendekati rasio teoritis Hukum Mendel II (misal 9 : 3 : 3 : 1 pada persilangan F1 Dihibrid Heterozigot).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MATERI & TEORI MENDEL II -->
+        <section id="content-materi" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200/80 max-w-4xl mx-auto space-y-6">
+                
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Modul Edukasi</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mt-1">Hukum Mendel II (Hukum Asortasi Bebas)</h2>
+                    <p class="text-sm text-slate-500 mt-1">Law of Independent Assortment dalam Persilangan Dihibrid</p>
+                </div>
+
+                <!-- Content sections -->
+                <div class="prose prose-slate max-w-none text-sm text-slate-600 leading-relaxed space-y-4">
+                    <p>
+                        <strong>Hukum Mendel II</strong> menyatakan bahwa <em class="text-slate-800 font-semibold">"Setiap alel/sifat dari gen yang berbeda akan mengelompok (berasortasi) secara bebas pada saat pembentukan gamet."</em> Hukum ini berlaku untuk persilangan dengan <strong>dua sifat beda (Dihibrid)</strong> atau lebih, selama gen-gen tersebut berada pada kromosom yang berbeda.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Karakter 1: Bentuk Biji
+                            </h4>
+                            <ul class="list-disc list-inside space-y-1 text-xs">
+                                <li><strong>B (Dominan):</strong> Biji Bulat</li>
+                                <li><strong>b (Resesif):</strong> Biji Keriput</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span> Karakter 2: Warna Biji
+                            </h4>
+                            <ul class="list-disc list-inside space-y-1 text-xs">
+                                <li><strong>K (Dominan):</strong> Warna Kuning</li>
+                                <li><strong>k (Resesif):</strong> Warna Hijau</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="text-base font-bold text-slate-800 pt-2">Skema Persilangan Standar F2 (BbKk x BbKk)</h3>
+                    <p>
+                        Ketika individu F1 berpembawaan heterozigot ganda (<strong>BbKk</strong>) disilangkan dengan sesamanya, masing-masing induk akan membentuk 4 jenis gamet secara acak & bebas dengan peluang yang sama (25%):
+                        <span class="inline-flex gap-1 font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">BK</span>,
+                        <span class="inline-flex gap-1 font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Bk</span>,
+                        <span class="inline-flex gap-1 font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">bK</span>, dan
+                        <span class="inline-flex gap-1 font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">bk</span>.
+                    </p>
+
+                    <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-900">
+                        <h4 class="font-bold mb-2 text-sm">Rasio Fenotip Standar Dihibrid (F2):</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-bold">
+                            <div class="p-2 bg-white rounded-lg border border-emerald-200 shadow-sm">
+                                <span class="text-amber-600 block text-lg font-black">9</span>
+                                Bulat - Kuning
+                            </div>
+                            <div class="p-2 bg-white rounded-lg border border-emerald-200 shadow-sm">
+                                <span class="text-emerald-600 block text-lg font-black">3</span>
+                                Bulat - Hijau
+                            </div>
+                            <div class="p-2 bg-white rounded-lg border border-emerald-200 shadow-sm">
+                                <span class="text-amber-600 block text-lg font-black">3</span>
+                                Keriput - Kuning
+                            </div>
+                            <div class="p-2 bg-white rounded-lg border border-emerald-200 shadow-sm">
+                                <span class="text-slate-600 block text-lg font-black">1</span>
+                                Keriput - Hijau
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: KUIS / EVALUASI INTERAKTIF -->
+        <section id="content-kuis" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200/80 max-w-3xl mx-auto">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Kuis Pemahaman Hukum Mendel II</h2>
+                        <p class="text-xs text-slate-500 mt-1">Uji pemahaman kamu mengenai persilangan dihibrid.</p>
+                    </div>
+                    <div id="quiz-score-badge" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1.5 rounded-xl">
+                        Skor: <span id="quiz-score">0</span> / <span id="quiz-total">0</span>
+                    </div>
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Dynamic Question Cards injected by JS -->
+                </div>
+
+                <!-- Quiz Reset Button -->
+                <div class="mt-8 pt-4 border-t border-slate-100 flex justify-end">
+                    <button onclick="resetQuiz()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Ulangi Kuis
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-4 text-center text-xs text-slate-500">
+        <p>Lab Maya Genetika &copy; Simulasi Hukum Mendel II (Persilangan Dihibrid)</p>
+    </footer>
+
+    <script>
+        // Configuration & Phenotype Mappings
+        const PHENOTYPES = {
+            'BULAT_KUNING': {
+                name: 'Bulat - Kuning',
+                bg: 'bg-amber-100',
+                border: 'border-amber-300',
+                text: 'text-amber-900',
+                colorCode: '#fbbf24',
+                icon: (w=28, h=28) => `<svg width="${w}" height="${h}" viewBox="0 0 40 40" class="drop-shadow-sm"><circle cx="20" cy="20" r="16" fill="#f59e0b" stroke="#d97706" stroke-width="2"/><circle cx="15" cy="15" r="4" fill="#fef3c7" opacity="0.6"/></svg>`
+            },
+            'BULAT_HIJAU': {
+                name: 'Bulat - Hijau',
+                bg: 'bg-emerald-100',
+                border: 'border-emerald-300',
+                text: 'text-emerald-900',
+                colorCode: '#10b981',
+                icon: (w=28, h=28) => `<svg width="${w}" height="${h}" viewBox="0 0 40 40" class="drop-shadow-sm"><circle cx="20" cy="20" r="16" fill="#10b981" stroke="#059669" stroke-width="2"/><circle cx="15" cy="15" r="4" fill="#d1fae5" opacity="0.6"/></svg>`
+            },
+            'KERIPUT_KUNING': {
+                name: 'Keriput - Kuning',
+                bg: 'bg-yellow-50',
+                border: 'border-yellow-300',
+                text: 'text-yellow-900',
+                colorCode: '#f39c12',
+                icon: (w=28, h=28) => `<svg width="${w}" height="${h}" viewBox="0 0 40 40" class="drop-shadow-sm"><path d="M 20,5 C 26,4 34,9 35,16 C 36,23 32,32 25,35 C 18,37 9,33 5,26 C 2,18 8,7 15,5 Z" fill="#d97706" stroke="#b45309" stroke-width="2"/><path d="M 12,12 Q 18,15 15,22 M 22,10 Q 25,18 28,25" stroke="#b45309" stroke-width="1.5" fill="none" opacity="0.5"/></svg>`
+            },
+            'KERIPUT_HIJAU': {
+                name: 'Keriput - Hijau',
+                bg: 'bg-slate-100',
+                border: 'border-slate-300',
+                text: 'text-slate-800',
+                colorCode: '#64748b',
+                icon: (w=28, h=28) => `<svg width="${w}" height="${h}" viewBox="0 0 40 40" class="drop-shadow-sm"><path d="M 20,5 C 26,4 34,9 35,16 C 36,23 32,32 25,35 C 18,37 9,33 5,26 C 2,18 8,7 15,5 Z" fill="#64748b" stroke="#475569" stroke-width="2"/><path d="M 12,12 Q 18,15 15,22 M 22,10 Q 25,18 28,25" stroke="#334155" stroke-width="1.5" fill="none" opacity="0.5"/></svg>`
+            }
+        };
+
+        // Quiz Questions Data
+        const QUIZ_DATA = [
+            {
+                id: 1,
+                question: "Pada persilangan dihibrid BbKk x BbKk, berapa rasio fenotip teoritis hasil keturunannya menurut Hukum Mendel II?",
+                options: ["3 : 1", "1 : 2 : 1", "9 : 3 : 3 : 1", "12 : 3 : 1"],
+                answer: 2,
+                explanation: "Persilangan dua individu heterozigot dihibrid (BbKk x BbKk) menghasilkan 16 kombinasi genotipe dengan rasio fenotipe 9 (Bulat-Kuning) : 3 (Bulat-Hijau) : 3 (Keriput-Kuning) : 1 (Keriput-Hijau)."
+            },
+            {
+                id: 2,
+                question: "Induk dengan genotipe BbKK dapat menghasilkan gamet jenis apa saja secara asortasi bebas?",
+                options: ["BK dan bK", "BK, Bk, bK, bk", "BB dan KK", "Bk dan bk"],
+                answer: 0,
+                explanation: "Alel B/b berpisah menjadi B dan b, sedangkan alel K/K hanya menghasilkan K. Kombinasi yang terbentuk adalah BK dan bK."
+            },
+            {
+                id: 3,
+                question: "Pernyataan utama Hukum Mendel II (Hukum Asortasi Bebas) adalah...",
+                options: [
+                    "Alel yang sama akan selalu berpasangan bersama.",
+                    "Gen-gen dari sifat yang berbeda mengelompok secara bebas saat pembentukan gamet.",
+                    "Sifat resesif selalu menutupi sifat dominan.",
+                    "Jumlah kromosom berkurang menjadi separuh pada sel tubuh."
+                ],
+                answer: 1,
+                explanation: "Hukum Mendel II menyatakan alel untuk satu sifat memisah dan berasortasi secara bebas dengan alel untuk sifat lainnya."
+            },
+            {
+                id: 4,
+                question: "Jika disilangkan tanaman berbiji Keriput-Hijau (bbkk) dengan sesamanya (bbkk), fenotipe keturunannya adalah...",
+                options: [
+                    "100% Bulat-Kuning",
+                    "50% Bulat-Kuning, 50% Keriput-Hijau",
+                    "100% Keriput-Hijau",
+                    "75% Keriput-Kuning, 25% Keriput-Hijau"
+                ],
+                answer: 2,
+                explanation: "Kedua induk homozigot resesif (bbkk) hanya menghasilkan gamet 'bk', sehingga semua keturunan 100% bergenotipe bbkk (Keriput-Hijau)."
+            }
+        ];
+
+        let currentChart = null;
+        let currentPopulationSize = 500;
+        let quizAnswers = {};
+
+        // Helper: Determine Gametes from Genotype
+        function getGametes(genotype) {
+            // genotype string e.g. "BbKk"
+            const b1 = genotype[0], b2 = genotype[1];
+            const k1 = genotype[2], k2 = genotype[3];
+
+            const gametesSet = new Set();
+            gametesSet.add(b1 + k1);
+            gametesSet.add(b1 + k2);
+            gametesSet.add(b2 + k1);
+            gametesSet.add(b2 + k2);
+
+            return Array.from(gametesSet);
+        }
+
+        // Helper: Always return array of 4 gametes for 4x4 Punnett Grid
+        function getFourGametes(genotype) {
+            const b1 = genotype[0], b2 = genotype[1];
+            const k1 = genotype[2], k2 = genotype[3];
+            return [b1 + k1, b1 + k2, b2 + k1, b2 + k2];
+        }
+
+        // Helper: Combine Gametes & Order alleles uppercase first (e.g., bB -> Bb)
+        function combineGametes(g1, g2) {
+            const bAlleles = [g1[0], g2[0]].sort((a, b) => {
+                if (a === a.toUpperCase() && b === b.toLowerCase()) return -1;
+                if (a === a.toLowerCase() && b === b.toUpperCase()) return 1;
+                return a.localeCompare(b);
+            });
+            const kAlleles = [g1[1], g2[1]].sort((a, b) => {
+                if (a === a.toUpperCase() && b === b.toLowerCase()) return -1;
+                if (a === a.toLowerCase() && b === b.toUpperCase()) return 1;
+                return a.localeCompare(b);
+            });
+            return bAlleles.join('') + kAlleles.join('');
+        }
+
+        // Helper: Get Phenotype key from Genotype
+        function getPhenotypeKey(genotype) {
+            const hasB = genotype.includes('B');
+            const hasK = genotype.includes('K');
+
+            if (hasB && hasK) return 'BULAT_KUNING';
+            if (hasB && !hasK) return 'BULAT_HIJAU';
+            if (!hasB && hasK) return 'KERIPUT_KUNING';
+            return 'KERIPUT_HIJAU';
+        }
+
+        // Tab Switcher
+        function switchTab(tabName) {
+            const tabs = ['lab', 'materi', 'kuis'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}`);
+                const content = document.getElementById(`content-${tab}`);
+                if (tab === tabName) {
+                    btn.className = "nav-tab px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 bg-white text-emerald-800 shadow";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "nav-tab px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 text-white/80 hover:text-white hover:bg-white/10";
+                    content.classList.add('hidden');
+                }
+            });
+            if (tabName === 'lab' && currentChart) {
+                currentChart.update();
+            }
+        }
+
+        // Core Update Simulation
+        function updateSimulation() {
+            const p1Val = document.getElementById('parent1-select').value;
+            const p2Val = document.getElementById('parent2-select').value;
+
+            // Render Parents Visual
+            const p1Pheno = PHENOTYPES[getPhenotypeKey(p1Val)];
+            const p2Pheno = PHENOTYPES[getPhenotypeKey(p2Val)];
+
+            document.getElementById('p1-visual').innerHTML = `
+                ${p1Pheno.icon(32, 32)}
+                <div>
+                    <div class="text-xs font-bold text-slate-800">${p1Pheno.name}</div>
+                    <div class="text-[10px] text-slate-500 font-mono">${p1Val}</div>
+                </div>
+            `;
+
+            document.getElementById('p2-visual').innerHTML = `
+                ${p2Pheno.icon(32, 32)}
+                <div>
+                    <div class="text-xs font-bold text-slate-800">${p2Pheno.name}</div>
+                    <div class="text-[10px] text-slate-500 font-mono">${p2Val}</div>
+                </div>
+            `;
+
+            // Display Unique Gametes
+            document.getElementById('p1-gametes').innerText = getGametes(p1Val).join(', ');
+            document.getElementById('p2-gametes').innerText = getGametes(p2Val).join(', ');
+
+            // Build Punnett Board (4x4)
+            renderPunnettSquare(p1Val, p2Val);
+
+            // Run Macro Population Sim
+            runPopulationSim(currentPopulationSize);
+        }
+
+        function renderPunnettSquare(p1Geno, p2Geno) {
+            const g1 = getFourGametes(p1Geno); // Top Column headers
+            const g2 = getFourGametes(p2Geno); // Left Row headers
+
+            let html = `<div class="grid grid-cols-5 gap-1.5 text-center font-bold text-xs">`;
+            
+            // Corner Cell
+            html += `<div class="p-2 flex items-center justify-center bg-slate-100 text-slate-400 rounded-lg text-[10px] border border-slate-200">♂ \\ ♀</div>`;
+
+            // Top Header Gametes (P1 - Male)
+            g1.forEach(gamete => {
+                html += `<div class="p-2 bg-blue-100 text-blue-800 rounded-lg border border-blue-200 font-mono flex items-center justify-center gap-1">
+                    <i data-lucide="mars" class="w-3 h-3 opacity-60"></i> ${gamete}
+                </div>`;
+            });
+
+            // Grid Rows (P2 Gametes & Offsprings)
+            g2.forEach((gameteRow, rIdx) => {
+                // Left Header Gamete (P2 - Female)
+                html += `<div class="p-2 bg-pink-100 text-pink-800 rounded-lg border border-pink-200 font-mono flex items-center justify-center gap-1">
+                    <i data-lucide="venus" class="w-3 h-3 opacity-60"></i> ${gameteRow}
+                </div>`;
+
+                // 4 Cells for Row
+                g1.forEach((gameteCol, cIdx) => {
+                    const childGeno = combineGametes(gameteCol, gameteRow);
+                    const phenoKey = getPhenotypeKey(childGeno);
+                    const pheno = PHENOTYPES[phenoKey];
+
+                    html += `
+                        <div class="p-2 ${pheno.bg} ${pheno.border} ${pheno.text} border rounded-xl flex flex-col items-center justify-center transition hover:scale-105 shadow-sm cursor-pointer group relative">
+                            ${pheno.icon(24, 24)}
+                            <span class="font-mono font-bold text-xs mt-1">${childGeno}</span>
+                            <span class="text-[9px] opacity-80 leading-none mt-0.5 text-center hidden sm:block">${pheno.name}</span>
+                        </div>
+                    `;
+                });
+            });
+
+            html += `</div>`;
+            document.getElementById('punnett-board').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function runPopulationSim(size) {
+            if (size) currentPopulationSize = size;
+            
+            const p1Val = document.getElementById('parent1-select').value;
+            const p2Val = document.getElementById('parent2-select').value;
+
+            const g1 = getFourGametes(p1Val);
+            const g2 = getFourGametes(p2Val);
+
+            // Theoretical Counts in 16 combinations
+            const theoretical16Counts = {
+                'BULAT_KUNING': 0,
+                'BULAT_HIJAU': 0,
+                'KERIPUT_KUNING': 0,
+                'KERIPUT_HIJAU': 0
+            };
+
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    const geno = combineGametes(g1[i], g2[j]);
+                    const pKey = getPhenotypeKey(geno);
+                    theoretical16Counts[pKey]++;
+                }
+            }
+
+            // Simulate Random Population Sampling
+            const expCounts = {
+                'BULAT_KUNING': 0,
+                'BULAT_HIJAU': 0,
+                'KERIPUT_KUNING': 0,
+                'KERIPUT_HIJAU': 0
+            };
+
+            for (let n = 0; n < currentPopulationSize; n++) {
+                const randG1 = g1[Math.floor(Math.random() * 4)];
+                const randG2 = g2[Math.floor(Math.random() * 4)];
+                const childGeno = combineGametes(randG1, randG2);
+                const pKey = getPhenotypeKey(childGeno);
+                expCounts[pKey]++;
+            }
+
+            // Calculate ratios & update UI
+            updateChartAndSummary(theoretical16Counts, expCounts, currentPopulationSize);
+        }
+
+        function updateChartAndSummary(theo16, exp, popSize) {
+            const keys = ['BULAT_KUNING', 'BULAT_HIJAU', 'KERIPUT_KUNING', 'KERIPUT_HIJAU'];
+            
+            // Expected theoretically for current popSize
+            const theoExpectedCounts = keys.map(k => (theo16[k] / 16) * popSize);
+            const expActualCounts = keys.map(k => exp[k]);
+
+            // Render Phenotype Cards Summary
+            const container = document.getElementById('phenotype-cards-container');
+            container.innerHTML = keys.map(k => {
+                const pheno = PHENOTYPES[k];
+                const count = exp[k];
+                const pct = ((count / popSize) * 100).toFixed(1);
+                const theoPct = ((theo16[k] / 16) * 100).toFixed(1);
+
+                return `
+                    <div class="p-2.5 rounded-xl ${pheno.bg} border ${pheno.border} flex items-center gap-2.5">
+                        <div class="shrink-0">${pheno.icon(28, 28)}</div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-[11px] font-bold ${pheno.text} truncate">${pheno.name}</div>
+                            <div class="text-sm font-black text-slate-800">${count} <span class="text-[10px] font-normal text-slate-500">(${pct}%)</span></div>
+                            <div class="text-[9px] text-slate-500">Teoritis: ${theo16[k]}/16 (${theoPct}%)</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Chart Rendering
+            const ctx = document.getElementById('ratioChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: keys.map(k => PHENOTYPES[k].name),
+                    datasets: [
+                        {
+                            label: 'Hasil Eksperimen (Acak)',
+                            data: expActualCounts,
+                            backgroundColor: keys.map(k => PHENOTYPES[k].colorCode),
+                            borderRadius: 8,
+                            borderWidth: 0
+                        },
+                        {
+                            label: 'Ekspektasi Teoritis Mendel',
+                            data: theoExpectedCounts,
+                            backgroundColor: 'rgba(100, 116, 139, 0.25)',
+                            borderColor: '#64748b',
+                            borderWidth: 2,
+                            borderDash: [4, 4],
+                            type: 'line',
+                            pointStyle: 'circle',
+                            pointRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { font: { family: 'Plus Jakarta Sans', size: 11 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${Math.round(context.raw)} individu`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Jumlah Keturunan', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            document.getElementById('quiz-total').innerText = QUIZ_DATA.length;
+            
+            container.innerHTML = QUIZ_DATA.map((q, idx) => `
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3" id="quiz-card-${q.id}">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-emerald-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
+                        <p class="text-sm font-semibold text-slate-800">${q.question}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-2 pl-9">
+                        ${q.options.map((opt, optIdx) => `
+                            <button onclick="answerQuiz(${q.id}, ${optIdx})" id="quiz-opt-${q.id}-${optIdx}" class="quiz-opt-btn text-left p-2.5 rounded-xl text-xs border border-slate-200 bg-white hover:bg-slate-100 transition font-medium text-slate-700">
+                                ${String.fromCharCode(65 + optIdx)}. ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div id="quiz-feedback-${q.id}" class="hidden pl-9 pt-2 text-xs"></div>
+                </div>
+            `).join('');
+        }
+
+        function answerQuiz(qId, selectedOpt) {
+            const q = QUIZ_DATA.find(item => item.id === qId);
+            if (!q || quizAnswers[qId] !== undefined) return; // prevent re-answer
+
+            quizAnswers[qId] = selectedOpt;
+
+            const isCorrect = selectedOpt === q.answer;
+            const feedbackEl = document.getElementById(`quiz-feedback-${qId}`);
+
+            // Style buttons
+            q.options.forEach((_, optIdx) => {
+                const btn = document.getElementById(`quiz-opt-${qId}-${optIdx}`);
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-100');
+                if (optIdx === q.answer) {
+                    btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+                } else if (optIdx === selectedOpt && !isCorrect) {
+                    btn.classList.add('bg-rose-100', 'border-rose-400', 'text-rose-900');
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            // Feedback Banner
+            feedbackEl.classList.remove('hidden');
+            if (isCorrect) {
+                feedbackEl.innerHTML = `
+                    <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 font-medium">
+                        <span class="font-bold text-emerald-700 flex items-center gap-1 mb-1">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Benar Sekali!
+                        </span>
+                        ${q.explanation}
+                    </div>
+                `;
+            } else {
+                feedbackEl.innerHTML = `
+                    <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900 font-medium">
+                        <span class="font-bold text-rose-700 flex items-center gap-1 mb-1">
+                            <i data-lucide="x-circle" class="w-4 h-4"></i> Jawaban Kurang Tepat.
+                        </span>
+                        ${q.explanation}
+                    </div>
+                `;
+            }
+            lucide.createIcons();
+
+            // Update Score
+            calculateQuizScore();
+        }
+
+        function calculateQuizScore() {
+            let score = 0;
+            Object.keys(quizAnswers).forEach(qId => {
+                const q = QUIZ_DATA.find(item => item.id == qId);
+                if (q && quizAnswers[qId] === q.answer) {
+                    score++;
+                }
+            });
+            document.getElementById('quiz-score').innerText = score;
+        }
+
+        function resetQuiz() {
+            quizAnswers = {};
+            document.getElementById('quiz-score').innerText = '0';
+            initQuiz();
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            lucide.createIcons();
+            initQuiz();
+            updateSimulation();
+        };
+    </script>
+</body>
+</html>
